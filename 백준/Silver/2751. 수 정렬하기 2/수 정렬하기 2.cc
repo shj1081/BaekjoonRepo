@@ -1,31 +1,23 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <algorithm>
+#include <iostream>
 
-int compare(const void *a, const void *b) {
-    int num1 = *(int *)a;
-    int num2 = *(int *)b;
-
-    if (num1 < num2) {
-        return -1;
-    }
-    if (num1 > num2) {
-        return 1;
-    }
-    return 0;
-}
+using namespace std;
 
 int main() {
-    int N;
-    scanf("%d", &N);
-    int arr[N];
-    for (int i = 0; i < N; i++) {
-        scanf("%d", &arr[i]);
-    }
+    // cin, cout 속도 향상
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-    // quick sort library function
-    qsort(arr, N, sizeof(int), compare);
+    int arr[1000001];
+    int n;
 
-    for (int i = 0; i < N; i++) {
-        printf("%d\n", arr[i]);
-    }
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    sort(arr, arr + n);
+
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << '\n';
 }
