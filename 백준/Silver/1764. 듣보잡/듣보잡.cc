@@ -1,44 +1,32 @@
-#include <algorithm>
 #include <iostream>
-#include <set>
-#include <string>
+#include <algorithm>
 #include <vector>
-
+#include <set>
 using namespace std;
 
 int main() {
-    // ios::sync_with_stdio(0);
-    // cin.tie(0);
-    // cout.tie(0);
+	int N, M;
+	int count = 0;
+	string see, listen;
+	set <string> set;
+	vector <string> result;
+	cin >> N >> M;
 
-    // set을 이용한 풀이
-    set<string> set;
-    vector<string> arr;
+	for (int i = 0; i < N; i++) {
+		cin >> see;
+		set.insert(see);
+	}
+	for (int i = 0; i < M; i++) {
+		cin >> listen;
+		if (set.find(listen) != set.end()) {
+			count++;
+			result.push_back(listen);
+		}
+	}
+	sort(result.begin(), result.end());
 
-    int N, M;
-    int cnt = 0;
-    string name;
-
-    cin >> N >> M;
-
-    for (size_t i = 0; i < N; i++) {
-        cin >> name;
-        set.insert(name);
-    }
-
-    for (size_t i = 0; i < M; i++) {
-        cin >> name;
-        if (set.find(name) != set.end()) {
-            arr.push_back(name);
-            cnt++;
-        }
-    }
-
-    sort(arr.begin(), arr.end());
-
-    cout << cnt << endl;
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << arr[i] << endl;
-    }
-    return 0;
+	cout << count << '\n';
+	for (int i = 0; i < result.size(); i++) {
+		cout << result[i] << '\n';
+	}
 }
