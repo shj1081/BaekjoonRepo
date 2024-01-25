@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
-#include <set>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -12,7 +12,7 @@ int main() {
     cout.tie(0);
 
     string str;
-    set<string> set;
+    unordered_set<string> set; // 정렬이 되지 않는대신 속도 더 빠름
 
     cin >> str;
 
