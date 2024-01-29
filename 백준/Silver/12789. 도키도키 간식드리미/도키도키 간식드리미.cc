@@ -12,25 +12,25 @@ int main() {
     cout.tie(0);
 
     int N, num;
-    int enter = 1;
+    int nextEnter = 1;
     stack<int> stack;
     cin >> N;
 
     for (size_t i = 0; i < N; i++) {
         cin >> num;
-        if (num == enter) {
-            enter++;
+        if (num == nextEnter) {
+            nextEnter++;
         } else {
             stack.push(num);
         }
 
-        while (!stack.empty() && stack.top() == enter) {
-            enter++;
+        while (!stack.empty() && stack.top() == nextEnter) {
+            nextEnter++;
             stack.pop();
         }
     }
 
-    if (enter == N + 1) {
+    if (nextEnter == N + 1) {
         cout << "Nice";
     } else {
         cout << "Sad";
