@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <set>
+// https://www.acmicpc.net/board/view/90885 : unordered_set을 사용하면 생기는 허점 (clear함수)
 #include <string>
 
 using namespace std;
