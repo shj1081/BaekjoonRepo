@@ -10,15 +10,20 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    int N;
+    int max = -1000001, min = 1000001, num, N;
     cin >> N;
-    vector<int> vec(N);
 
     for (size_t i = 0; i < N; i++) {
-        cin >> vec[i];
+        cin >> num;
+        if (max < num) {
+            max = num;
+        }
+        if (min > num) {
+            min = num;
+        }
     }
 
-    cout << *min_element(vec.begin(), vec.end()) << " " << *max_element(vec.begin(), vec.end());
+    cout << min << " " << max;
 
     return 0;
 }
