@@ -4,14 +4,16 @@
 
 using namespace std;
 
+// global variables
 int cnt = 0;
 int K;
+vector<int> tmp;
 
-void merge_arr(vector<int> &vec, vector<int> &tmp, int p, int q, int r) {
+void merge_arr(vector<int> &vec, int p, int q, int r) {
+    tmp.clear();
     int i = p;
     int j = q + 1;
     int t = 0;
-    tmp.clear();
 
     while (i <= q && j <= r) {
         if (vec[i] <= vec[j]) {
@@ -39,12 +41,12 @@ void merge_arr(vector<int> &vec, vector<int> &tmp, int p, int q, int r) {
     }
 }
 
-void merge_sort(vector<int> &vec, vector<int> &tmp, int p, int r) {
+void merge_sort(vector<int> &vec, int p, int r) {
     if (p < r) {
         int q = (p + r) / 2;
-        merge_sort(vec, tmp, p, q);
-        merge_sort(vec, tmp, q + 1, r);
-        merge_arr(vec, tmp, p, q, r);
+        merge_sort(vec, p, q);
+        merge_sort(vec, q + 1, r);
+        merge_arr(vec, p, q, r);
     }
 }
 
@@ -55,7 +57,6 @@ int main() {
 
     int N, num;
     vector<int> vec;
-    vector<int> tmp;
 
     cin >> N >> K;
     for (size_t i = 0; i < N; i++) {
@@ -64,7 +65,7 @@ int main() {
     }
 
     tmp.resize(N);
-    merge_sort(vec, tmp, 0, vec.size() - 1);
+    merge_sort(vec, 0, vec.size() - 1);
     if (cnt < K) {
         cout << -1;
     }
