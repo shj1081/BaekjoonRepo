@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -21,7 +22,7 @@ int main() {
 
     int N;
     cin >> N;
-    cout << (1 << N) - 1 << "\n";  // 2^N - 1
+    cout << int(pow(2, N)) - 1 << "\n";
     hanoi(N, 1, 3, 2);
 
     return 0;
