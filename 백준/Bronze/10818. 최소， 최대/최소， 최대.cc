@@ -10,17 +10,15 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    int N, num, res;
-    vector<int> vec;
+    int N;
     cin >> N;
+    vector<int> vec(N);
 
     for (size_t i = 0; i < N; i++) {
-        cin >> num;
-        vec.push_back(num);
+        cin >> vec[i];
     }
 
-    sort(vec.begin(), vec.end());
-    cout << vec[0] << " " << vec[N - 1];
+    cout << *min_element(vec.begin(), vec.end()) << " " << *max_element(vec.begin(), vec.end());
 
     return 0;
 }
