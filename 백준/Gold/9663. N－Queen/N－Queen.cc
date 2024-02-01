@@ -12,33 +12,28 @@ N-Queen 문제의 경우 각 행에는 하나의 퀸만 올 수 있다는 조건
 using namespace std;
 
 int N, cnt = 0;
-const int MAX = 15;
-int put[MAX];  // index : 놓여진 row, value : 놓여진 col
+// col과 대각선 arr 2개, 총 3개의 arr를 이용해보기
+bool isUsedCol[15];
+bool isUsedUDiag[15 * 2 - 1];  // 오른쪽 위로 진행 (0,0) 시작
+bool isUsedDDiag[15 * 2 - 1];  // 오른쪽 아래로 진행 (14,0) 시작
 
-bool isAvailPos(int currentRow) {
-    for (size_t i = 0; i < currentRow; i++) {
-        // currentRow와 같은 col에 놓여져 있거나, 같은 대각선상에 존재(row 차이 = col 차이) 하는 경우 불가
-        if (put[i] == put[currentRow] || abs(put[currentRow] - put[i]) == (currentRow - i)) {
-            return false;
-        }
-    }
-    return true;
-}
 void nQueen(int currentRow) {
-    // 퀸 N개인 경우에만 cnt ++
     if (currentRow == N) {
         cnt++;
         return;
     }
 
-    for (size_t col = 0; col < N; col++) {
-        put[currentRow] = col;  // 놓아보고
-
-        if (isAvailPos(currentRow)) {  // 가능하면?
-            nQueen(currentRow + 1);    // 다음 row 정하기
+    for (size_t i = 0; i < N; i++) {
+        // 대각선 계산 주의
+        if (!isUsedCol[i] && !isUsedUDiag[i + currentRow] && !isUsedDDiag[N - i + currentRow]) {
+            isUsedCol[i] = true;
+            isUsedUDiag[i + currentRow] = true;
+            isUsedDDiag[N - i + currentRow] = true;
+            nQueen(currentRow + 1);
+            isUsedCol[i] = false;
+            isUsedUDiag[i + currentRow] = false;
+            isUsedDDiag[N - i + currentRow] = false;
         }
-
-        // 못놓으면 다음 col에 놓아보기 시도
     }
 }
 
