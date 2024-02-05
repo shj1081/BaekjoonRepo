@@ -8,12 +8,6 @@ N개의 타일수열을 만드려면 N-1개의 타일수열에 1을 추가하거
 
 using namespace std;
 int dp[1000001];
-int calc(int n) {
-    if (n == 1) return 1;
-    if (n == 2) return 2;
-    if (dp[n] != 0) return dp[n];
-    return dp[n] = (calc(n - 1) + calc(n - 2)) % 15746;
-}
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -22,7 +16,14 @@ int main() {
 
     int n;
     cin >> n;
-    cout << calc(n) << endl;
+
+    dp[1] = 1;
+    dp[2] = 2;
+    for (int i = 3; i <= n; i++) {
+        dp[i] = (dp[i - 1] + dp[i - 2]) % 15746;
+    }
+
+    cout << dp[n] << endl;
 
     return 0;
 }
