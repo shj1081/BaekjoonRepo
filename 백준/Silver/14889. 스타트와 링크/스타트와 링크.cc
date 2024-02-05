@@ -28,11 +28,9 @@ void calc(int number, int nextPlayer) {
 
     // start 팀에 선수 넣기
     for (int i = nextPlayer; i < N; i++) {
-        if (!isStart[i]) {
-            isStart[i] = true;
-            calc(number + 1, i + 1);
-            isStart[i] = false;
-        }
+        isStart[i] = true;
+        calc(number + 1, i + 1);
+        isStart[i] = false;
     }
 }
 
