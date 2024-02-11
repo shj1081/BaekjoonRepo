@@ -12,30 +12,27 @@ int main() {
     int weight, value;
     cin >> numOfItems >> maxWeight;
 
-    vector<pair<int, int>> items(numOfItems + 1);  // (weight, value)
+    int weights[numOfItems + 1];
+    int values[numOfItems + 1];
+
     for (int i = 1; i <= numOfItems; i++) {
         cin >> weight >> value;
-        items[i] = {weight, value};
+        weights[i] = weight;
+        values[i] = value;
     }
 
-    int dp[numOfItems + 1][maxWeight + 1];
+    int dp[maxWeight + 1];
     memset(dp, 0, sizeof(dp));
 
-    for (int itemNum = 1; itemNum <= numOfItems; itemNum++) {
-        for (int availWeight = 1; availWeight <= maxWeight; availWeight++) {
-            // 가방에 넣을 수 있는 경우
-            if (availWeight >= items[itemNum].first) {
-                // 이전 아이템까지의 최대 가치와 현재 아이템을 넣었을 때의 가치 중 큰 값을 선택
-                dp[itemNum][availWeight] = max(dp[itemNum - 1][availWeight], dp[itemNum - 1][availWeight - items[itemNum].first] + items[itemNum].second);
-            }
-            // 가방에 넣을 수 없는 경우
-            else {
-                dp[itemNum][availWeight] = dp[itemNum - 1][availWeight];
-            }
+    for (int i = 1; i <= numOfItems; i++) {
+        // 가방에 넣을 수 있는 무게가 weights[i]보다 작으면 넣을 수 없으므로 continue
+        for (int j = maxWeight; j >= weights[i]; j--) {
+            // 무게가 j인 가방에 넣을 수 있는 최대 가치 업데이트
+            dp[j] = max(dp[j], dp[j - weights[i]] + values[i]);
         }
     }
 
-    cout << dp[numOfItems][maxWeight] << endl;
+    cout << dp[maxWeight] << endl;
 
     return 0;
 }
