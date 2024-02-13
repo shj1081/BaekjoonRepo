@@ -1,33 +1,28 @@
 #include <bits/stdc++.h>
 #define endl '\n'
-#define MOD 1000000007LL  // LL indicates long long
+#define MOD 1000000007LL
 
 using namespace std;
 
-map<long long, long long> fibonachiDP;
+long long side = 2, N;
+long long A[2][2] = {{1, 1}, {1, 0}};
+long long temp[2][2];
+long long ans[2][2] = {{1, 0}, {0, 1}};  // Initialize ans with identity matrix
 
-long long fibonachi(long long n) {
-    if (n == 0) return 0;
-    if (n == 1) return 1;
-    if (n == 2) return 1;
-    if (fibonachiDP.count(n)) return fibonachiDP[n];  // if n is already calculated, return it
+// 행렬 곱셈
+void multiplyMatrix(long long X[2][2], long long Y[2][2]) {
+    for (int i = 0; i < side; i++)
+        for (int j = 0; j < side; j++) {
+            temp[i][j] = 0;  // 행렬 초기화
+            for (int k = 0; k < side; k++)
+                temp[i][j] += (X[i][k] * Y[k][j]);
 
-    // n이 짝수인 경우
-    if (n % 2 == 0) {
-        long long m = n / 2;
-        long long temp1 = fibonachi(m - 1);
-        long long temp2 = fibonachi(m);
-        fibonachiDP[n] = ((2LL * temp1 + temp2) * temp2) % MOD;
-        return fibonachiDP[n];
-    }
-    // n이 홀수인 경우
-    else {
-        long long m = (n + 1) / 2;
-        long long temp1 = fibonachi(m - 1);
-        long long temp2 = fibonachi(m);
-        fibonachiDP[n] = (temp1 * temp1 + temp2 * temp2) % MOD;
-        return fibonachiDP[n];
-    }
+            temp[i][j] %= MOD;
+        }
+
+    for (int i = 0; i < side; i++)
+        for (int j = 0; j < side; j++)
+            X[i][j] = temp[i][j];
 }
 
 int main() {
@@ -35,9 +30,16 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    long long n;
-    cin >> n;
-    cout << fibonachi(n);
+    cin >> N;
 
+    while (N > 0) {
+        if (N % 2 == 1) {
+            multiplyMatrix(ans, A);
+        }
+        multiplyMatrix(A, A);
+        N /= 2;
+    }
+
+    cout << ans[0][1] << endl;
     return 0;
 }
