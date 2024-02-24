@@ -13,19 +13,19 @@ struct cmp {
     }
 };
 
-// absolute min heap
-priority_queue<int, vector<int>, cmp> abolusteMinHeap;
+// absolute max heap
+priority_queue<int, vector<int>, cmp> abolusteMaxHeap;
 
 void operation(int num) {
     if (num == 0) {
-        if (abolusteMinHeap.empty()) {
+        if (abolusteMaxHeap.empty()) {
             cout << 0 << endl;
         } else {
-            cout << abolusteMinHeap.top() << endl;
-            abolusteMinHeap.pop();
+            cout << abolusteMaxHeap.top() << endl;
+            abolusteMaxHeap.pop();
         }
     } else {
-        abolusteMinHeap.push(num);
+        abolusteMaxHeap.push(num);
     }
 }
 
